@@ -1,0 +1,25 @@
+{
+  "name": "react-rapid-setup",
+  "version": "0.0.0",
+  "description": "aeraer",
+  "main": "tasks/rrs.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anskotid/react-rapid-setup.git"
+  },
+  "keywords": [
+    "react"
+  ],
+  "author": "Anastasios Skotidas",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/anskotid/react-rapid-setup/issues"
+  },
+  "homepage": "https://github.com/anskotid/react-rapid-setup#readme",
+  "dependencies": {
+    "commander": "^2.20.0"
+  }
+}

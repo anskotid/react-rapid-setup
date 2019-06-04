@@ -1,0 +1,29 @@
+{
+  "parser": "babel-eslint",
+  "extends": ["airbnb-base", "prettier"],
+  "plugins": ["import", "prettier"],
+  "rules": {
+    "prettier/prettier": "error",
+    "guard-for-in": "warn",
+    "no-plusplus": "off",
+    "no-underscore-dangle": "off",
+    "no-await-in-loop": "off",
+    "class-methods-use-this": "off",
+    "import/prefer-default-export": "off"
+  },
+  "globals": {
+    "window": true,
+    "document": true,
+    "Headers": true,
+    "it": true,
+    "fetch": true,
+    "test": true,
+    "expect": true,
+    "describe": true,
+    "require": true,
+    "module": true,
+    "localStorage": true,
+    "navigator": true,
+    "btoa": true
+  }
+}
