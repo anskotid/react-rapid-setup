@@ -3,10 +3,10 @@ const path = require('path');
 const cp = require('child_process');
 const program = require('commander');
 
-const dependencies = require('../dependencies').dependencies;
-const devDependencies = require('../dependencies').devDependencies;
+const { dependencies, devDependencies } = require('../dependencies');
 
 const handleExit = () => {
+  // eslint-disable-next-line no-undef
   cleanup();
   console.log('Exiting without error.');
   process.exit();
@@ -44,6 +44,7 @@ fs.mkdirSync(directory);
 cp.execSync('npm init', { cwd: directory, stdio: 'inherit' });
 
 const packageJsonDir = path.join(directory, 'package.json');
+// eslint-disable-next-line import/no-dynamic-require
 const packageJson = require(path.join(directory, 'package.json'));
 
 packageJson.dependencies = dependencies;
