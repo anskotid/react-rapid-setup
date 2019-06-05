@@ -1,9 +1,13 @@
 const fs = require('fs');
 const path = require('path');
 const cp = require('child_process');
+
+const fse = require('fs-extra');
 const program = require('commander');
+const replace = require('replace-in-file');
 
 const { dependencies, devDependencies } = require('../dependencies');
+const scripts = require('../scripts');
 
 const handleExit = () => {
   // eslint-disable-next-line no-undef
@@ -30,7 +34,8 @@ const rootDir = path.join(__dirname, '..');
 
 program
   .option('--title <type>', 'project title')
-  .option('-r, --no-router', 'without react-router');
+  .option('-r, --not-router', 'without react-router')
+  .option('-x, --not-redux', 'without redux');
 
 program.parse(process.argv);
 
@@ -39,9 +44,9 @@ if (!directoryName) handleError('The --title argument is required');
 
 const directory = path.join(rootDir, directoryName);
 
-fs.mkdirSync(directory);
+fse.mkdirsSync(directory);
 
-cp.execSync('npm init', { cwd: directory, stdio: 'inherit' });
+cp.execSync('yarn init', { cwd: directory, stdio: 'inherit' });
 
 const packageJsonDir = path.join(directory, 'package.json');
 // eslint-disable-next-line import/no-dynamic-require
@@ -49,30 +54,59 @@ const packageJson = require(path.join(directory, 'package.json'));
 
 packageJson.dependencies = dependencies;
 packageJson.devDependencies = devDependencies;
+packageJson.scripts = scripts;
 
-console.log('router', program.noRouter);
-console.log();
+if (program.notRouter) delete packageJson.dependencies['react-router-dom'];
+if (program.notRedux) {
+  delete packageJson.dependencies.redux;
+  delete packageJson.dependencies['react-redux'];
+  delete packageJson.dependencies['redux-thunk'];
+}
 
-if (program.noRouter) delete packageJson.dependencies['react-router-dom'];
+fse.outputFileSync(packageJsonDir, JSON.stringify(packageJson, null, 2), 'utf8');
 
-fs.writeFileSync(packageJsonDir, JSON.stringify(packageJson, null, 2), 'utf8');
-
-cp.execSync('npm install', { cwd: directory, stdio: 'inherit' });
-
-const packageLockDir = path.join(directory, 'package-lock.json');
-
-if (fs.existsSync(packageLockDir)) fs.unlinkSync(packageLockDir);
+cp.execSync('yarn', { cwd: directory, stdio: 'inherit' });
 
 console.log('Copy template files...');
 console.log();
 
 const templateDir = path.join(rootDir, 'template');
+
 const templateFiles = fs.readdirSync(templateDir);
 
 templateFiles.forEach(fileName => {
-  fs.copyFileSync(path.join(templateDir, fileName), path.join(directory, fileName));
+  fse.copySync(path.join(templateDir, fileName), path.join(directory, fileName));
 });
 
-fs.mkdirSync(path.join(directory, 'src'));
+if (program.notRouter) {
+  fse.removeSync(path.join(templateDir, 'src/routes.js'));
+}
+
+if (program.notRedux) {
+  fse.removeSync(path.join(templateDir, 'src/redux'));
+
+  try {
+    replace.sync({
+      files: path.join(rootDir, program.title, 'src/index.js'),
+      from: [
+        /import { Provider as ReduxProvider } from 'react-redux';/g,
+        /<ReduxProvider store={store}>/g,
+        /<\/ReduxProvider>/g,
+        /import store from '.\/redux';/g,
+      ],
+      to: ['', '', '', ''],
+    });
+  } catch (error) {
+    handleError(error);
+  }
+}
+
+cp.execSync(
+  `${path.join(
+    rootDir,
+    'node_modules/prettier/bin-prettier.js',
+  )} --write ${'src/**/*.js'}`,
+  { cwd: directory },
+);
 
 console.log('Finished!');

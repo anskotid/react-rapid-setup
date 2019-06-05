@@ -35,7 +35,7 @@ const devDependencies = {
   'eslint-plugin-react-hooks': '^1.5.0',
   husky: '^1.2.0',
   jest: '^24.1.0',
-  'parcel-bundler': '1.12.2',
+  'parcel-bundler': '^1.12.3',
   stylelint: '^9.10.1',
   'stylelint-config-css-modules': '^1.3.0',
   'stylelint-config-prettier': '^5.0.0',

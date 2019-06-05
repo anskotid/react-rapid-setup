@@ -20,7 +20,9 @@
   },
   "homepage": "https://github.com/anskotid/react-rapid-setup#readme",
   "dependencies": {
-    "commander": "^2.20.0"
+    "commander": "^2.20.0",
+    "fs-extra": "^8.0.1",
+    "replace-in-file": "^4.1.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
