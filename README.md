@@ -21,8 +21,8 @@ cd my-app
 yarn start
 ```
 
-You can opt-out react-router by passing -r
-You can opt-out redux by passing -x
+- You can opt-out react-router by passing `` -r ``
+- You can opt-out redux by passing `` -x ``
 
 ## Prerequisites
 
