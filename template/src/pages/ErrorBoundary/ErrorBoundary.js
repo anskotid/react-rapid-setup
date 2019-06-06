@@ -17,13 +17,13 @@ class ErrorBoundary extends Component {
 
   render() {
     const { hasError } = this.state;
-    const CompomnentToRender = hasError ? (
+    const ComponentToRender = hasError ? (
       <h3>An error occured!</h3>
     ) : (
       this.props.children
     );
 
-    return CompomnentToRender;
+    return ComponentToRender;
   }
 }
 
