@@ -32,10 +32,8 @@ Yarn
 
 Check here: https://github.com/anskotid/react-rapid-setup/tree/master/template
 
-# Frequently Asked Questions
+## Frequently Asked Questions
 
-- [Why do I get both .babelrc and babel.config.js?](#spell-check-doesnt-work-how-do-i-enable-it)
-
-## Why do I get both .babelrc and babel.config.js??
+### Why do I get both .babelrc and babel.config.js??
 
 Unfortunately, Parcel doesn't support babel.config.js yet, so both are needed (babel.config.js is used by Jest).
