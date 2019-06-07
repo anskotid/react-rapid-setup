@@ -1,6 +1,6 @@
 {
   "name": "react-rapid-setup",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A template setup for rapid develompent",
   "main": "tasks/rrs.js",
   "bin": {
