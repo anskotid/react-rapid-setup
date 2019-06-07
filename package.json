@@ -1,6 +1,6 @@
 {
   "name": "react-rapid-setup",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A template setup for rapid develompent",
   "main": "tasks/rrs.js",
   "bin": {
@@ -13,6 +13,9 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/anskotid/react-rapid-setup.git"
+  },
+  "engines": {
+    "node": ">=4"
   },
   "keywords": [
     "react"
