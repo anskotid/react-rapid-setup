@@ -72,6 +72,12 @@ if (program.notRedux) {
   delete packageJson.dependencies['redux-thunk'];
 }
 
+if (!program.notRouter) {
+  packageJson.alias = {
+    'react-dom': '@hot-loader/react-dom',
+  };
+}
+
 fse.outputFileSync(packageJsonDir, JSON.stringify(packageJson, null, 2), 'utf8');
 
 cp.execSync('yarn', { cwd: directory, stdio: 'inherit' });
