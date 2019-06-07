@@ -3,6 +3,10 @@
   "version": "0.0.1",
   "description": "A template setup for rapid develompent",
   "main": "tasks/rrs.js",
+  "bin": {
+    "react-rapid-setup": "tasks/rrs.js",
+    "rrs": "tasks/rrs.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
