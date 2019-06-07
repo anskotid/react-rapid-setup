@@ -74,7 +74,7 @@ if (program.notRedux) {
 
 fse.outputFileSync(packageJsonDir, JSON.stringify(packageJson, null, 2), 'utf8');
 
-// cp.execSync('yarn', { cwd: directory, stdio: 'inherit' });
+cp.execSync('yarn', { cwd: directory, stdio: 'inherit' });
 
 console.info('Copy template files...');
 console.log();
