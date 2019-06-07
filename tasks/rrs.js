@@ -67,7 +67,7 @@ fse.outputFileSync(packageJsonDir, JSON.stringify(packageJson, null, 2), 'utf8')
 
 cp.execSync('yarn', { cwd: directory, stdio: 'inherit' });
 
-console.log('Copy template files...');
+console.info('Copy template files...');
 console.log();
 
 const templateDir = path.join(rootDir, 'template');
@@ -79,11 +79,25 @@ templateFiles.forEach(fileName => {
 });
 
 if (program.notRouter) {
-  fse.removeSync(path.join(templateDir, 'src/routes.js'));
+  fse.removeSync(path.join(directory, 'src/routes.js'));
+
+  try {
+    replace.sync({
+      files: path.join(rootDir, program.title, 'src/App.js'),
+      from: [
+        /import { Route, Switch, BrowserRouter } from 'react-router-dom';/g,
+        /import routes from '.\/routes';/g,
+        /(<BrowserRouter>.*?<\/BrowserRouter>)/gs,
+      ],
+      to: ['', 'import Home from "./pages/Home";', '<Home />'],
+    });
+  } catch (error) {
+    handleError(error);
+  }
 }
 
 if (program.notRedux) {
-  fse.removeSync(path.join(templateDir, 'src/redux'));
+  fse.removeSync(path.join(directory, 'src/redux'));
 
   try {
     replace.sync({
