@@ -34,17 +34,24 @@ console.log();
 
 const rootDir = path.join(__dirname, '..');
 
+let projectName;
+
 program
-  .option('--title <type>', 'project title')
+  .arguments('<project-directory>')
+  .usage('<project-directory> [options]')
   .option('-r, --not-router', 'without react-router')
-  .option('-x, --not-redux', 'without redux');
+  .option('-x, --not-redux', 'without redux')
+  .action(name => {
+    projectName = name;
+  });
 
 program.parse(process.argv);
 
-const directoryName = program.title;
-if (!directoryName) handleError('The --title argument is required');
+if (typeof projectName === 'undefined') {
+  handleError('Please specify the project directory.');
+}
 
-const directory = path.join(rootDir, directoryName);
+const directory = path.resolve(projectName);
 
 fse.mkdirsSync(directory);
 
@@ -67,7 +74,7 @@ if (program.notRedux) {
 
 fse.outputFileSync(packageJsonDir, JSON.stringify(packageJson, null, 2), 'utf8');
 
-cp.execSync('yarn', { cwd: directory, stdio: 'inherit' });
+// cp.execSync('yarn', { cwd: directory, stdio: 'inherit' });
 
 console.info('Copy template files...');
 console.log();
