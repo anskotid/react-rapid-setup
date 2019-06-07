@@ -92,7 +92,7 @@ if (program.notRouter) {
 
   try {
     replace.sync({
-      files: path.join(rootDir, program.title, 'src/App.js'),
+      files: path.join(directory, 'src/App.js'),
       from: [
         /import { Route, Switch, BrowserRouter } from 'react-router-dom';/g,
         /import routes from '.\/routes';/g,
@@ -110,7 +110,7 @@ if (program.notRedux) {
 
   try {
     replace.sync({
-      files: path.join(rootDir, program.title, 'src/index.js'),
+      files: path.join(directory, 'src/index.js'),
       from: [
         /import { Provider as ReduxProvider } from 'react-redux';/g,
         /<ReduxProvider store={store}>/g,
@@ -125,10 +125,7 @@ if (program.notRedux) {
 }
 
 cp.execSync(
-  `${path.join(
-    rootDir,
-    'node_modules/prettier/bin-prettier.js',
-  )} --write ${'src/**/*.js'}`,
+  `${path.join('node_modules/prettier/bin-prettier.js')} --write ${'src/**/*.js'}`,
   { cwd: directory },
 );
 
