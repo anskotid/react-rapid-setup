@@ -15,7 +15,7 @@ Offered out of the box:
 ## Using
 
 ```bash
-npx react-rapid-setup --title=my-app
+npx react-rapid-setup my-app
 
 cd my-app
 yarn start
